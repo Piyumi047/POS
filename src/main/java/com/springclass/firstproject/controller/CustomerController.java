@@ -102,4 +102,15 @@ public class CustomerController {
                 HttpStatus.OK
         );
     }
+
+    @GetMapping(
+            path = "/get-all-customers-by-name/{name}"
+    )
+    public ResponseEntity<StanderdResponse> getallCustomersByName(@PathVariable(value = "name") String customer_name){
+        List<CustomerDTO> allCustomersByName=customerService.getallCustomerByName(customer_name);
+        return new ResponseEntity<StanderdResponse>(
+                new StanderdResponse(200,"Successful",allCustomersByName),
+                HttpStatus.OK
+        );
+    }
 }

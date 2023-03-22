@@ -13,6 +13,8 @@ public interface CustomerRepo extends JpaRepository<Customer,Integer> {
 
     List<Customer> findAllByNicEquals(String customer_nic);
 
+    List<Customer> findAllByCustomerNameEquals(String customer_name);
+
 //    Customer getReferenceById(String customerid);
 //
 //    boolean existsById(String customerid);

@@ -43,13 +43,19 @@ public class ItemController {
             path = "get-by-name-and-status",
             params = {"qty","status"}
     )
-    public List<ItemGetResponseDTO> getItemByQtyandStatus(
+    public ResponseEntity<StanderdResponse> getItemByQtyandStatus(
             @RequestParam(value = "qty") double qty,
             @RequestParam(value = "status") boolean status){
         List<ItemGetResponseDTO> itemGetResponseDTOS=itemService.getItembyQtyandStatus(qty,status);
-        return itemGetResponseDTOS;
+        return new ResponseEntity<>(
+                new StanderdResponse(200,"Successful",itemGetResponseDTOS),
+                HttpStatus.OK
+        );
 
     }
+
+
+
 
 
 }
