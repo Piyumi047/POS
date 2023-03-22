@@ -1,4 +1,4 @@
-package com.springclass.firstproject.dto.response;
+package com.springclass.firstproject.dto.request;
 
 import com.springclass.firstproject.entity.enums.MeasuringUnitType;
 import lombok.AllArgsConstructor;
@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ItemGetResponseDTO {
+public class IteamUpdateDTO {
     private String itemId;
-    private String itemName;
+    private double blanceQty;
+    private double supplierPrice;
     private double sellerPrice;
-
 }

@@ -2,7 +2,6 @@ package com.springclass.firstproject.controller;
 
 import com.springclass.firstproject.dto.CustomerDTO;
 import com.springclass.firstproject.dto.request.CustomerUpdateDTO;
-import com.springclass.firstproject.repo.CustomerRepo;
 import com.springclass.firstproject.service.CustomerService;
 import com.springclass.firstproject.util.StanderdResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +33,21 @@ public class CustomerController {
        // return customerService.updateCustomer(customerUpdateDTO);
         return new ResponseEntity<StanderdResponse>(
                 new StanderdResponse(200,"Successfully updated",customerService.updateCustomer(customerUpdateDTO)),
+                HttpStatus.OK
+        );
+    }
+
+    @PutMapping(
+            path = "/update-customer-status",
+            params = {"ststus","id"}
+    )
+    private ResponseEntity<StanderdResponse> deactivateCustomer(
+            @RequestParam(value = "status") boolean customerStatus,
+            @RequestParam(value = "is")int customerId
+    ){
+        CustomerDTO customerDTO=customerService.updateCustomerStatus(customerId,customerStatus);
+        return new ResponseEntity<StanderdResponse>(
+                new StanderdResponse(200,"Successful",customerDTO),
                 HttpStatus.OK
         );
     }

@@ -23,4 +23,7 @@ public interface CustomerService {
     List<CustomerDTO> getCustomerByNIC(String customer_nic);
 
     List<CustomerDTO> getallCustomerByName(String customer_name);
+
+
+    CustomerDTO updateCustomerStatus(int customerId, boolean customerStatus);
 }

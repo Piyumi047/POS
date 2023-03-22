@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface ItemRepo extends JpaRepository<Item,String> {
     List<Item> findAllByBlanceQtyEqualsAndActiveStatesEquals(double qty, boolean status);
+
 }

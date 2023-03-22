@@ -190,5 +190,28 @@ public class CustomerServiceIMPL implements CustomerService {
         }
     }
 
+    @Override
+    public CustomerDTO updateCustomerStatus(int customerId, boolean customerStatus) {
+        if(customerRepo.existsById(customerId)){
+            Customer customer=customerRepo.getReferenceById(customerId);
+            customer.setActiveStates(customerStatus);
+
+            CustomerDTO customerDTO=new CustomerDTO(
+                    customer.getCustomerId(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getContactNumbers(),
+                    customer.getNic(),
+                    customer.isActiveStates()
+
+            );
+           return customerDTO;
+
+        }
+        else {
+            throw new RuntimeException("NO CUSTOMER FOR PROVIDED ID");
+        }
+    }
+
 
 }

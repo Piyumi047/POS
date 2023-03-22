@@ -1,6 +1,7 @@
 package com.springclass.firstproject.controller;
 
 import com.springclass.firstproject.dto.ItemDTO;
+import com.springclass.firstproject.dto.request.IteamUpdateDTO;
 import com.springclass.firstproject.dto.response.ItemGetResponseDTO;
 import com.springclass.firstproject.service.ItemService;
 import com.springclass.firstproject.util.StanderdResponse;
@@ -54,8 +55,25 @@ public class ItemController {
 
     }
 
+    @DeleteMapping(
+            path = "/delete-by-id/{id}"
+    )
+    public ResponseEntity<StanderdResponse> deleteIteamById(@PathVariable(value = "id") String itemId){
+        String message=itemService.deleteCustomer(itemId);
+        return new ResponseEntity<StanderdResponse>(
+                new StanderdResponse(200,"Successfull",message),
+                HttpStatus.OK
+        );
+    }
 
-
+    @PutMapping(path = "/update-item")
+    public ResponseEntity<StanderdResponse> updateItem(@RequestBody IteamUpdateDTO iteamUpdateDTO){
+        ItemDTO itemDTO=itemService.updateItem(iteamUpdateDTO);
+        return new ResponseEntity<StanderdResponse>(
+                new StanderdResponse(200,"Successful",itemDTO),
+                HttpStatus.OK
+        );
+    }
 
 
 }

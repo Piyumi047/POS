@@ -1,6 +1,7 @@
 package com.springclass.firstproject.service.impl;
 
 import com.springclass.firstproject.dto.ItemDTO;
+import com.springclass.firstproject.dto.request.IteamUpdateDTO;
 import com.springclass.firstproject.dto.response.ItemGetResponseDTO;
 import com.springclass.firstproject.entity.Item;
 import com.springclass.firstproject.repo.ItemRepo;
@@ -48,5 +49,41 @@ public class ItemServiceIMPL implements ItemService {
             throw new RuntimeException("Error");
         }
 
+    }
+
+    @Override
+    public String deleteCustomer(String itemId) {
+        if(itemRepo.existsById(itemId)){
+            itemRepo.deleteById(itemId);
+            return "Delete Successfully"+itemId;
+        }
+        else {
+            throw new RuntimeException("NOT FOUND THE ITEAM FOR PROVIDED ID");
+        }
+    }
+
+    @Override
+    public ItemDTO updateItem(IteamUpdateDTO iteamUpdateDTO) {
+        if(itemRepo.existsById(iteamUpdateDTO.getItemId())){
+            Item item=itemRepo.getReferenceById(iteamUpdateDTO.getItemId());
+            item.setBlanceQty(iteamUpdateDTO.getBlanceQty());
+            item.setSellerPrice(iteamUpdateDTO.getSellerPrice());
+            item.setSupplierPrice(iteamUpdateDTO.getSupplierPrice());
+
+            ItemDTO itemDTO=new ItemDTO(
+                    item.getItemId(),
+                    item.getItemName(),
+                    item.getMeasuringUnitType(),
+                    item.getBlanceQty(),
+                    item.getSupplierPrice(),
+                    item.getSellerPrice(),
+                    item.isActiveStates()
+            );
+
+            return itemDTO;
+        }
+        else {
+            throw new RuntimeException("NOT ITEAM FOR PROVIDED ID");
+        }
     }
 }
