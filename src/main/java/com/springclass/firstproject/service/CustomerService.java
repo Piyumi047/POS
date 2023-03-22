@@ -18,4 +18,7 @@ public interface CustomerService {
     String deleteCustomer(int customerid);
 
     List<CustomerDTO> getCustomerByStatus(boolean status);
+
+
+    List<CustomerDTO> getCustomerByNIC(String customer_nic);
 }

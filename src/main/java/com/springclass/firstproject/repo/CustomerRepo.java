@@ -10,4 +10,10 @@ import java.util.List;
 public interface CustomerRepo extends JpaRepository<Customer,Integer> {
 
     List<Customer> findAllByActiveStatesEquals(boolean status);
+
+    List<Customer> findAllByNicEquals(String customer_nic);
+
+//    Customer getReferenceById(String customerid);
+//
+//    boolean existsById(String customerid);
 }

@@ -21,23 +21,33 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping
-    public String SaveCustomer(@RequestBody CustomerDTO customerDTO){
-        customerService.saveCustomer(customerDTO);
-        return "saved customer";
+    public ResponseEntity<StanderdResponse> SaveCustomer(@RequestBody CustomerDTO customerDTO){
+        String message=customerService.saveCustomer(customerDTO);
+
+        return new ResponseEntity<StanderdResponse>(
+                new StanderdResponse(200,"Successfully Saved",message),HttpStatus.CREATED
+        );
     }
 
     @PutMapping("/update")
-    public CustomerDTO updateCustomer(@RequestBody CustomerUpdateDTO customerUpdateDTO){
-        return customerService.updateCustomer(customerUpdateDTO);
+    public ResponseEntity<StanderdResponse> updateCustomer(@RequestBody CustomerUpdateDTO customerUpdateDTO){
+       // return customerService.updateCustomer(customerUpdateDTO);
+        return new ResponseEntity<StanderdResponse>(
+                new StanderdResponse(200,"Successfully updated",customerService.updateCustomer(customerUpdateDTO)),
+                HttpStatus.OK
+        );
     }
 
     @GetMapping(
             path={"/get-by-id"},
             params={"id"}
     )
-    public CustomerDTO getCustomerById(@RequestParam(value = "id") int customerid){
+    public ResponseEntity<StanderdResponse> getCustomerById(@RequestParam(value = "id") int customerid){
         CustomerDTO c= customerService.getCustomerById(customerid);
-        return c;
+        return new ResponseEntity<StanderdResponse>(
+                new StanderdResponse(200,"Successful",c),
+                HttpStatus.OK
+        );
 
     }
 
@@ -60,18 +70,36 @@ public class CustomerController {
     }
 
     @DeleteMapping(path = "/delete-by-id/{id}")
-    public String deleteCustomer(@PathVariable(value = "id") int customerid){
+    public ResponseEntity<StanderdResponse> deleteCustomer(@PathVariable(value = "id") int customerid){
         String deleted=customerService.deleteCustomer(customerid);
-        return deleted;
+        return new ResponseEntity<StanderdResponse>(
+                new StanderdResponse(200,"Successfully Deleted",deleted),
+                HttpStatus.OK
+        );
     }
 
     @GetMapping(
             path={"/get-all-customers-by-active-state"},
             params={"status"}
     )
-    public List<CustomerDTO> getCustomerByActiveStatus(@RequestParam(value = "status") boolean status){
+    public ResponseEntity<StanderdResponse> getCustomerByActiveStatus(@RequestParam(value = "status") boolean status){
         List<CustomerDTO> c= customerService.getCustomerByStatus(status);
-        return c;
+        return new ResponseEntity<StanderdResponse>(
+                new StanderdResponse(200,"Successful",c),
+                HttpStatus.OK
+        );
 
+    }
+
+    @GetMapping(
+            path = "/get-customers-by-nic",
+            params = "nic"
+    )
+    public ResponseEntity<StanderdResponse> getallCustomersByNIC(@RequestParam(value = "nic") String customer_nic){
+        List<CustomerDTO> customerListByNIC=customerService.getCustomerByNIC(customer_nic);
+        return new ResponseEntity<StanderdResponse>(
+                new StanderdResponse(200,"Successfull",customerListByNIC),
+                HttpStatus.OK
+        );
     }
 }

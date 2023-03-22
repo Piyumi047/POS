@@ -6,12 +6,9 @@ import com.springclass.firstproject.entity.Customer;
 import com.springclass.firstproject.exception.NotFoundException;
 import com.springclass.firstproject.repo.CustomerRepo;
 import com.springclass.firstproject.service.CustomerService;
-import org.hibernate.annotations.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,4 +142,30 @@ public class CustomerServiceIMPL implements CustomerService {
         }
 
     }
+
+    @Override
+    public List<CustomerDTO> getCustomerByNIC(String customer_nic) {
+        List<Customer> allCustomersByNIC=customerRepo.findAllByNicEquals(customer_nic);
+        if(allCustomersByNIC.size()>0){
+            List<CustomerDTO> customerDTOList=new ArrayList<>();
+            for(Customer c:allCustomersByNIC){
+                CustomerDTO customerDTO=new CustomerDTO(
+                        c.getCustomerId(),
+                        c.getCustomerName(),
+                        c.getCustomerAddress(),
+                        c.getContactNumbers(),
+                        c.getNic(),
+                        c.isActiveStates()
+                );
+
+                customerDTOList.add(customerDTO);
+            }
+            return customerDTOList;
+        }
+        else {
+            throw new RuntimeException("No Customers for provided NIC");
+        }
+    }
+
+
 }
