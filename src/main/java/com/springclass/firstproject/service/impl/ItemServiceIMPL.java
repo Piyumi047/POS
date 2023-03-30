@@ -100,8 +100,14 @@ public class ItemServiceIMPL implements ItemService {
     public PagenatedResponaseItemDTO getItemByStatusPagenated(boolean status, int page, int size) {
         Page<Item> items=itemRepo.findAllByActiveStatesEquals(status, PageRequest.of(page,size));
 
-        PagenatedResponaseItemDTO pagenatedResponaseItemDTO=new PagenatedResponaseItemDTO(
+        if(items.getSize()<1){
+            throw new RuntimeException("No Data");
+        }
 
+        //List<ItemDTO> itemDTOS=itemMapper.pageToDTO(items);
+        PagenatedResponaseItemDTO pagenatedResponaseItemDTO=new PagenatedResponaseItemDTO(
+                 itemMapper.pageToDTO(items),
+                itemRepo.countAllByActiveStatesEquals(status)
         );
 
         return pagenatedResponaseItemDTO;

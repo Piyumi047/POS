@@ -94,9 +94,9 @@ public class ItemController {
 
     @GetMapping(
             path = "get=all-customers-by-page",
-            params = {"activeSatatus","size","page"}
+            params = {"activeStatus","size","page"}
     )
-    public ResponseEntity<StanderdResponse> getAllItemsBystatus(
+    public ResponseEntity<StanderdResponse> getAllItemsByPage(
             @RequestParam(value = "activeStatus") boolean status,
             @RequestParam(value = "size") int size,
             @RequestParam(value="page")int page
