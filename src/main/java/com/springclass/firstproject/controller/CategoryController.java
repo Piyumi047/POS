@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/category")
 public class CategoryController {
@@ -26,5 +28,18 @@ public class CategoryController {
                 ), HttpStatus.CREATED
         );
     }
+
+    @GetMapping(
+            path = "/get-all-category-by-status",
+            params = "status"
+    )
+    public ResponseEntity<StanderdResponse> getallCategory(@RequestParam(value = "status")boolean status){
+         List<CategoryDTO> categoryDTOS=categoryService.getAllCategories(status);
+         return new ResponseEntity<StanderdResponse>(
+                 new StanderdResponse(200,"All Categories comes",categoryDTOS),HttpStatus.OK
+         );
+    }
+
+
 
 }
