@@ -2,10 +2,13 @@ package com.springclass.firstproject.service.impl;
 
 import com.springclass.firstproject.dto.CustomerDTO;
 import com.springclass.firstproject.dto.request.CustomerUpdateDTO;
+import com.springclass.firstproject.dto.response.ItemGetResponseDTO;
 import com.springclass.firstproject.entity.Customer;
 import com.springclass.firstproject.exception.NotFoundException;
 import com.springclass.firstproject.repo.CustomerRepo;
 import com.springclass.firstproject.service.CustomerService;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,9 @@ public class CustomerServiceIMPL implements CustomerService {
     @Autowired
     private CustomerRepo customerRepo;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
 
     @Override
     public List<CustomerDTO> getallCustomers() {
@@ -25,14 +31,19 @@ public class CustomerServiceIMPL implements CustomerService {
         if(getAllCustomers.size()>0){
             List<CustomerDTO> customerDTOList = new ArrayList<>();
             for (Customer c : getAllCustomers) {
-                CustomerDTO customerDTO = new CustomerDTO(
-                        c.getCustomerId(),
-                        c.getCustomerName(),
-                        c.getCustomerAddress(),
-                        c.getContactNumbers(),
-                        c.getNic(),
-                        c.isActiveStates()
-                );
+
+                //use normal way to map the data
+//                CustomerDTO customerDTO = new CustomerDTO(
+//                        c.getCustomerId(),
+//                        c.getCustomerName(),
+//                        c.getCustomerAddress(),
+//                        c.getContactNumbers(),
+//                        c.getNic(),
+//                        c.isActiveStates()
+//                );
+
+                //use modelMppper for map the data
+                CustomerDTO customerDTO=modelMapper.map(c,CustomerDTO.class);
                 customerDTOList.add(customerDTO);
             }
             return customerDTOList;
@@ -45,15 +56,17 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public String saveCustomer(CustomerDTO customerDTO) {
-        Customer customer=new Customer(
-                customerDTO.getCustomerId(),
-                customerDTO.getCustomerName(),
-                customerDTO.getCustomerAddress(),
-                customerDTO.getContactNumbers(),
-                customerDTO.getNic(),
-                customerDTO.isActiveStates()
-        );
-
+        //use normal way to map the data
+//        Customer customer=new Customer(
+//                customerDTO.getCustomerId(),
+//                customerDTO.getCustomerName(),
+//                customerDTO.getCustomerAddress(),
+//                customerDTO.getContactNumbers(),
+//                customerDTO.getNic(),
+//                customerDTO.isActiveStates()
+//        );
+        //use Model Mapper
+        Customer customer=modelMapper.map(customerDTO,Customer.class);
         customerRepo.save(customer);
 
         return customerDTO.getCustomerName()+"saved";
@@ -62,21 +75,25 @@ public class CustomerServiceIMPL implements CustomerService {
     @Override
     public CustomerDTO updateCustomer(CustomerUpdateDTO customerUpdateDTO) {
         if(customerRepo.existsById(customerUpdateDTO.getCustomerId())){
-            Customer customer=customerRepo.getReferenceById(customerUpdateDTO.getCustomerId());
+             Customer customer=customerRepo.getReferenceById(customerUpdateDTO.getCustomerId());
              customer.setCustomerName(customerUpdateDTO.getCustomerName());
              customer.setCustomerAddress(customerUpdateDTO.getCustomerAddress());
              customer.setNic(customerUpdateDTO.getNic());
 
              customerRepo.save(customer);
+            //use normal way to map the data
 
-             CustomerDTO customerDTO=new CustomerDTO(
-                   customer.getCustomerId(),
-                   customer.getCustomerName(),
-                   customer.getCustomerAddress(),
-                   customer.getContactNumbers(),
-                   customer.getNic(),
-                     customer.isActiveStates()
-             );
+//             CustomerDTO customerDTO=new CustomerDTO(
+//                   customer.getCustomerId(),
+//                   customer.getCustomerName(),
+//                   customer.getCustomerAddress(),
+//                   customer.getContactNumbers(),
+//                   customer.getNic(),
+//                     customer.isActiveStates()
+//             );
+
+            //use Model Mapper
+            CustomerDTO customerDTO=modelMapper.map(customer,CustomerDTO.class);
 
              return customerDTO;
 
@@ -91,15 +108,19 @@ public class CustomerServiceIMPL implements CustomerService {
     public CustomerDTO getCustomerById(int customerid) {
         if(customerRepo.existsById(customerid)){
             Customer customer=customerRepo.getReferenceById(customerid);
+            //use normal way to map the data
 
-            CustomerDTO customerDTO=new CustomerDTO(
-                    customer.getCustomerId(),
-                    customer.getCustomerName(),
-                    customer.getCustomerAddress(),
-                    customer.getContactNumbers(),
-                    customer.getNic(),
-                    customer.isActiveStates()
-            );
+//            CustomerDTO customerDTO=new CustomerDTO(
+//                    customer.getCustomerId(),
+//                    customer.getCustomerName(),
+//                    customer.getCustomerAddress(),
+//                    customer.getContactNumbers(),
+//                    customer.getNic(),
+//                    customer.isActiveStates()
+//            );
+
+            //use Model Mapper
+            CustomerDTO customerDTO=modelMapper.map(customer,CustomerDTO.class);
             return customerDTO;
 
         }else {
@@ -125,14 +146,18 @@ public class CustomerServiceIMPL implements CustomerService {
         if(getAllCustomers.size()>0){
             List<CustomerDTO> customerDTOList = new ArrayList<>();
             for (Customer c : getAllCustomers) {
-                CustomerDTO customerDTO = new CustomerDTO(
-                        c.getCustomerId(),
-                        c.getCustomerName(),
-                        c.getCustomerAddress(),
-                        c.getContactNumbers(),
-                        c.getNic(),
-                        c.isActiveStates()
-                );
+                //use normal way to map the data
+//                CustomerDTO customerDTO = new CustomerDTO(
+//                        c.getCustomerId(),
+//                        c.getCustomerName(),
+//                        c.getCustomerAddress(),
+//                        c.getContactNumbers(),
+//                        c.getNic(),
+//                        c.isActiveStates()
+//                );
+
+                //use Model Mapper
+                CustomerDTO customerDTO=modelMapper.map(c,CustomerDTO.class);
                 customerDTOList.add(customerDTO);
             }
             return customerDTOList;
@@ -149,15 +174,18 @@ public class CustomerServiceIMPL implements CustomerService {
         if(allCustomersByNIC.size()>0){
             List<CustomerDTO> customerDTOList=new ArrayList<>();
             for(Customer c:allCustomersByNIC){
-                CustomerDTO customerDTO=new CustomerDTO(
-                        c.getCustomerId(),
-                        c.getCustomerName(),
-                        c.getCustomerAddress(),
-                        c.getContactNumbers(),
-                        c.getNic(),
-                        c.isActiveStates()
-                );
+                //use normal way to map the data
+//                CustomerDTO customerDTO=new CustomerDTO(
+//                        c.getCustomerId(),
+//                        c.getCustomerName(),
+//                        c.getCustomerAddress(),
+//                        c.getContactNumbers(),
+//                        c.getNic(),
+//                        c.isActiveStates()
+//                );
 
+                //use Model Mapper
+                CustomerDTO customerDTO=modelMapper.map(c,CustomerDTO.class);
                 customerDTOList.add(customerDTO);
             }
             return customerDTOList;
@@ -173,14 +201,18 @@ public class CustomerServiceIMPL implements CustomerService {
         if (allCustomersByName.size()>0){
             List<CustomerDTO> customerDTOList=new ArrayList<>();
             for (Customer customer:allCustomersByName){
-                CustomerDTO customerDTO=new CustomerDTO(
-                        customer.getCustomerId(),
-                        customer.getCustomerName(),
-                        customer.getCustomerAddress(),
-                        customer.getContactNumbers(),
-                        customer.getNic(),
-                        customer.isActiveStates()
-                );
+                //use normal way to map the data
+//                CustomerDTO customerDTO=new CustomerDTO(
+//                        customer.getCustomerId(),
+//                        customer.getCustomerName(),
+//                        customer.getCustomerAddress(),
+//                        customer.getContactNumbers(),
+//                        customer.getNic(),
+//                        customer.isActiveStates()
+//                );
+
+                //use Model Mapper
+                CustomerDTO customerDTO=modelMapper.map(customer,CustomerDTO.class);
                 customerDTOList.add(customerDTO);
             }
             return customerDTOList;
@@ -196,15 +228,19 @@ public class CustomerServiceIMPL implements CustomerService {
             Customer customer=customerRepo.getReferenceById(customerId);
             customer.setActiveStates(customerStatus);
 
-            CustomerDTO customerDTO=new CustomerDTO(
-                    customer.getCustomerId(),
-                    customer.getCustomerName(),
-                    customer.getCustomerAddress(),
-                    customer.getContactNumbers(),
-                    customer.getNic(),
-                    customer.isActiveStates()
+            //use normal way to map the data
+//            CustomerDTO customerDTO=new CustomerDTO(
+//                    customer.getCustomerId(),
+//                    customer.getCustomerName(),
+//                    customer.getCustomerAddress(),
+//                    customer.getContactNumbers(),
+//                    customer.getNic(),
+//                    customer.isActiveStates()
+//
+//            );
 
-            );
+            //use Model Mapper
+            CustomerDTO customerDTO=modelMapper.map(customer,CustomerDTO.class);
            return customerDTO;
 
         }

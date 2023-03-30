@@ -39,11 +39,11 @@ public class CustomerController {
 
     @PutMapping(
             path = "/update-customer-status",
-            params = {"ststus","id"}
+            params = {"status","id"}
     )
     private ResponseEntity<StanderdResponse> deactivateCustomer(
             @RequestParam(value = "status") boolean customerStatus,
-            @RequestParam(value = "is")int customerId
+            @RequestParam(value = "id")int customerId
     ){
         CustomerDTO customerDTO=customerService.updateCustomerStatus(customerId,customerStatus);
         return new ResponseEntity<StanderdResponse>(
