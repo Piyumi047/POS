@@ -1,6 +1,7 @@
 package com.springclass.firstproject.service;
 
 import com.springclass.firstproject.dto.ItemDTO;
+import com.springclass.firstproject.dto.pagenated.PagenatedResponaseItemDTO;
 import com.springclass.firstproject.dto.request.IteamUpdateDTO;
 import com.springclass.firstproject.dto.response.ItemGetResponseDTO;
 
@@ -14,4 +15,8 @@ public interface ItemService {
     String deleteCustomer(String itemId);
 
     ItemDTO updateItem(IteamUpdateDTO iteamUpdateDTO);
+
+    PagenatedResponaseItemDTO getItemByStatusPagenated(boolean status, int page, int size);
+
+    List<ItemGetResponseDTO> getItembyQtyandStatusByMapstruct(double qty, boolean status);
 }
