@@ -43,10 +43,14 @@ public class CategoryController {
     @DeleteMapping(
             path = "/delete-category/{id}"
     )
-    public String deleteCategory(@PathVariable(value = "id")int category_id){
+    public ResponseEntity<StanderdResponse> deleteCategory(@PathVariable(value = "id")int category_id){
         String message=categoryService.deleteCategory(category_id);
-        return "wedwed";
+        return new ResponseEntity<StanderdResponse>(
+                new StanderdResponse(200,"Deleted",message),
+                HttpStatus.OK
+        );
     }
+
 
 
 
