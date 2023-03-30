@@ -51,4 +51,19 @@ public class CategoryServiceIMPL implements CategoryService {
             throw new NotFoundException("NOT FOUND ANY CATEGORY FOR GIVEN ID");
         }
     }
+
+    @Override
+    public CategoryDTO updateCategoryName(int category_id, String category_name) {
+        if(categoryRepo.existsById(category_id)){
+            Category category=categoryRepo.getReferenceById(category_id);
+            category.setCategoryName(category_name);
+
+            CategoryDTO categoryDTO=modelMapper.map(category,CategoryDTO.class);
+            return categoryDTO;
+        }
+        else {
+            throw new NotFoundException("NOT FOUND CATEGORY FOR PROVIDED ID");
+        }
+
+    }
 }

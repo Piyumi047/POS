@@ -51,6 +51,18 @@ public class CategoryController {
         );
     }
 
+    @PutMapping(
+            path = "update-category-name",
+            params = "category_name,category_id"
+    )
+    public CategoryDTO updateCategory(
+            @RequestParam(value = "category_name")String category_name,
+            @RequestParam(value = "category_id")int category_id
+            ){
+        CategoryDTO categoryDTO=categoryService.updateCategoryName(category_id,category_name);
+        return categoryDTO;
+    }
+
 
 
 
