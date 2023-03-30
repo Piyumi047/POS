@@ -40,6 +40,30 @@ public class CategoryController {
          );
     }
 
+    @DeleteMapping(
+            path = "/delete-category/{id}"
+    )
+    public ResponseEntity<StanderdResponse> deleteCategory(@PathVariable(value = "id")int category_id){
+        String message=categoryService.deleteCategory(category_id);
+        return new ResponseEntity<StanderdResponse>(
+                new StanderdResponse(200,"Deleted",message),
+                HttpStatus.OK
+        );
+    }
+
+    @PutMapping(
+            path = "update-category-name",
+            params = "category_name,category_id"
+    )
+    public CategoryDTO updateCategory(
+            @RequestParam(value = "category_name")String category_name,
+            @RequestParam(value = "category_id")int category_id
+            ){
+        CategoryDTO categoryDTO=categoryService.updateCategoryName(category_id,category_name);
+        return categoryDTO;
+    }
+
+
 
 
 }
