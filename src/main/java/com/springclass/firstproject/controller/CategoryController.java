@@ -40,6 +40,14 @@ public class CategoryController {
          );
     }
 
+    @DeleteMapping(
+            path = "/delete-category/{id}"
+    )
+    public String deleteCategory(@PathVariable(value = "id")int category_id){
+        String message=categoryService.deleteCategory(category_id);
+        return "wedwed";
+    }
+
 
 
 }

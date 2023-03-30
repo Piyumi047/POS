@@ -8,4 +8,6 @@ public interface CategoryService {
     String saveCategory(CategoryDTO categoryDTO);
 
     List<CategoryDTO> getAllCategories(boolean status);
+
+    String deleteCategory(int category_id);
 }

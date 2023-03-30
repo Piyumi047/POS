@@ -3,6 +3,7 @@ package com.springclass.firstproject.service.impl;
 import com.springclass.firstproject.dto.CategoryDTO;
 import com.springclass.firstproject.dto.response.ItemGetResponseDTO;
 import com.springclass.firstproject.entity.Category;
+import com.springclass.firstproject.exception.NotFoundException;
 import com.springclass.firstproject.repo.CategoryRepo;
 import com.springclass.firstproject.service.CategoryService;
 import org.modelmapper.ModelMapper;
@@ -38,5 +39,16 @@ public class CategoryServiceIMPL implements CategoryService {
             throw new RuntimeException("No categeries for given status");
         }
 
+    }
+
+    @Override
+    public String deleteCategory(int category_id) {
+        if(categoryRepo.existsById(category_id)){
+            categoryRepo.deleteById(category_id);
+            return "Successfully Deleted";
+        }
+        else{
+            throw new NotFoundException("NOT FOUND ANY CATEGORY FOR GIVEN ID");
+        }
     }
 }
