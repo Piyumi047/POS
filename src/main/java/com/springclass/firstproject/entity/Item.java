@@ -18,6 +18,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String itemId;
 
+    @Column(name = "supplier_id")
+    private int supplierId;
+
     @Column(name = "item_name",length = 100,nullable = false)
     //@Getter(AccessLevel.NONE)
     private String itemName;
