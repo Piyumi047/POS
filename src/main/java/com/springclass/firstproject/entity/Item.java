@@ -4,6 +4,7 @@ import com.springclass.firstproject.entity.enums.MeasuringUnitType;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -40,5 +41,8 @@ public class Item {
 
     @Column(name = "active_states",columnDefinition = "TINYINT DEFAULT 0")
     private boolean activeStates;
+
+    @OneToMany(mappedBy="items")
+    private Set<OrderItem> orderItems;
 
 }

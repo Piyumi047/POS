@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,28 +18,21 @@ import java.time.LocalDateTime;
 public class Order {
 
     @Id
-    @Column(name = "order_id",length = 45)
+    @Column(name = "item_id",length = 45)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderId;
 
     @ManyToOne
     @JoinColumn(name="customer_id", nullable=false)
     private Customer customer;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
-    @Column(name = "date_time")
-    private LocalDateTime dateTime;
-
-    @Column(name = "no_of_items")
-    private int noOfItems;
-
-    @Column(name = "bill_amount")
-    private double billAmount;
-
-    @Column(name = "discount")
-    private int discount;
+    @Column(name = "order_date",columnDefinition = "DATETIME")
+    private Date orderDate;
 
     @Column(name = "total_amount")
     private double totalAmount;
 
+    @OneToMany(mappedBy="orders")
+    private Set<OrderItem> orderItems;
 
 }
