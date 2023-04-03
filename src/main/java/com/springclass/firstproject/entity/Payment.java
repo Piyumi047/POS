@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,7 +34,6 @@ public class Payment {
     @Column(name = "balance")
     private double balance;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
-    @Column(name = "date_time")
-    private LocalDateTime dateTime;
+    @Column(name = "order_date",columnDefinition = "DATETIME")
+    private Date Date;
 }
