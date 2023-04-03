@@ -92,7 +92,7 @@ public class ItemController {
     }
 
     @GetMapping(
-            path = "get=all-customers-by-page",
+            path = "get=all-items-by-page",
             params = {"activeStatus","size","page"}
     )
     public ResponseEntity<StanderdResponse> getAllItemsByPage(
@@ -106,6 +106,9 @@ public class ItemController {
            new StanderdResponse(200,"Data comes",pagenatedResponaseItemDTO),HttpStatus.OK
         );
     }
+
+
+
 
 
 }
