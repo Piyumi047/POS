@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class OrderItem {
 
     @Id
-    @Column(name = "item_id",length = 45)
+    @Column(name = "order_item_id",length = 45)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderItemId;
 
