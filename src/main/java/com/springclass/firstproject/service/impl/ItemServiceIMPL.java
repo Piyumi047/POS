@@ -61,7 +61,7 @@ public class ItemServiceIMPL implements ItemService {
     }
 
     @Override
-    public String deleteCustomer(String itemId) {
+    public String deleteCustomer(int itemId) {
         if(itemRepo.existsById(itemId)){
             itemRepo.deleteById(itemId);
             return "Delete Successfully"+itemId;

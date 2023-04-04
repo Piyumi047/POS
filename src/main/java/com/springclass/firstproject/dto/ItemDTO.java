@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 public class ItemDTO {
 
-    private String itemId;
+    private int itemId;
     private String itemName;
     private MeasuringUnitType measuringUnitType;
     private double blanceQty;

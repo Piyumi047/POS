@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class IteamUpdateDTO {
-    private String itemId;
+    private int itemId;
     private double blanceQty;
     private double supplierPrice;
     private double sellerPrice;
