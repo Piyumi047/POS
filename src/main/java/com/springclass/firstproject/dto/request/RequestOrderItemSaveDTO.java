@@ -15,6 +15,6 @@ public class RequestOrderItemSaveDTO {
 
     private int noOfQTY;
     private int priceOfAllQTY;
-    private String items;
-    private String orders;
+    private int items;
+    private int orders;
 }

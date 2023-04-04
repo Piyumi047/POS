@@ -74,7 +74,7 @@ public class ItemController {
     @DeleteMapping(
             path = "/delete-by-id/{id}"
     )
-    public ResponseEntity<StanderdResponse> deleteIteamById(@PathVariable(value = "id") String itemId){
+    public ResponseEntity<StanderdResponse> deleteIteamById(@PathVariable(value = "id") int itemId){
         String message=itemService.deleteCustomer(itemId);
         return new ResponseEntity<StanderdResponse>(
                 new StanderdResponse(200,"Successfull",message),

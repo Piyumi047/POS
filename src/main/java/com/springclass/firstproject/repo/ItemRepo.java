@@ -12,7 +12,7 @@ import java.util.List;
 
 @EnableJpaRepositories
 @Repository
-public interface ItemRepo extends JpaRepository<Item,String> {
+public interface ItemRepo extends JpaRepository<Item,Integer> {
     List<Item> findAllByBlanceQtyEqualsAndActiveStatesEquals(double qty, boolean status);
 
     Page<Item> findAllByActiveStatesEquals(boolean status, Pageable pageable);

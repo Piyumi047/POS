@@ -12,7 +12,7 @@ public interface ItemService {
 
     List<ItemGetResponseDTO> getItembyQtyandStatus(double qty, boolean status);
 
-    String deleteCustomer(String itemId);
+    String deleteCustomer(int itemId);
 
     ItemDTO updateItem(IteamUpdateDTO iteamUpdateDTO);
 
